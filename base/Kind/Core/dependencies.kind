@@ -25,10 +25,6 @@ Kind.Core.dependencies.go(term: Kind.Term, deps: Kind.Map(Unit)): Kind.Map(Unit)
       let deps = Kind.Core.dependencies.go(term.expr, deps)
       let deps = Kind.Core.dependencies.go(term.body(nil), deps)
       deps
-    def:
-      let deps = Kind.Core.dependencies.go(term.expr, deps)
-      let deps = Kind.Core.dependencies.go(term.body(nil), deps)
-      deps
     ann:
       let deps = Kind.Core.dependencies.go(term.term, deps)
       let deps = Kind.Core.dependencies.go(term.type, deps)

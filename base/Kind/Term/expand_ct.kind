@@ -30,10 +30,6 @@ Kind.Term.expand_ct(term: Kind.Term, defs: Kind.Defs, arity: Nat): Kind.Term
       def expr = Kind.Term.expand_ct(term.expr, defs, 0);
       def body = (x) Kind.Term.expand_ct(term.body(x), defs, 0);
       Kind.Term.let(term.name, expr, body),
-    def:
-      def expr = Kind.Term.expand_ct(term.expr, defs, 0);
-      def body = (x) Kind.Term.expand_ct(term.body(x), defs, 0);
-      Kind.Term.def(term.name, expr, body),
     ann:
       def term = Kind.Term.expand_ct(term.term, defs, 0);
       def type = Kind.Term.expand_ct(term.type, defs, 0);

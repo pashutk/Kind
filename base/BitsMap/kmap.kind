@@ -1,0 +1,15 @@
+BitsMap.kmap<A: Type, B: Type>(fn: Bits -> A -> B, map: BitsMap<A>): BitsMap<B>
+  BitsMap.kmap.go<A,B>(fn, map, Bits.e)
+
+BitsMap.kmap.go<A: Type, B: Type>(fn: Bits -> A -> B, map: BitsMap<A>, path: Bits): BitsMap<B>
+  case map {
+    new: BitsMap.new!
+    tie:
+      let val = case map.val {
+        none: Maybe.none!
+        some: Maybe.some!(fn(Bits.reverse(path), map.val.value))
+      }
+      let lft = BitsMap.kmap.go<A,B>(fn, map.lft, Bits.o(path))
+      let rgt = BitsMap.kmap.go<A,B>(fn, map.rgt, Bits.i(path))
+      BitsMap.tie!(val, lft, rgt) 
+  }

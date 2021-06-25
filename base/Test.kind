@@ -1,0 +1,11 @@
+Test: Nat
+  def a = 1
+  def b = 2
+  def c = 3
+  def d = 4
+  case 1 1 {
+    zero zero: a
+    zero succ: b
+    succ zero: c
+    succ succ: d
+  }

@@ -12,8 +12,6 @@ Kind.Term.reduce(term: Kind.Term, defs: Kind.Defs): Kind.Term
       },
     let:
       Kind.Term.reduce(term.body(term.expr), defs),
-    def:
-      Kind.Term.reduce(term.body(term.expr), defs),
     ann:
       Kind.Term.reduce(term.term, defs),
     nat:

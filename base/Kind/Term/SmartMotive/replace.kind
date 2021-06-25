@@ -27,11 +27,6 @@ Kind.Term.SmartMotive.replace(term: Kind.Term, from: Kind.Term, to: Kind.Term, l
       let body = term.body(Kind.Term.ref(term.name))
       let body = Kind.Term.SmartMotive.replace(body, from, to, Nat.succ(lv));
       Kind.Term.let(term.name, expr, (x) body),
-    def:
-      let expr = Kind.Term.SmartMotive.replace(term.expr, from, to, lv);
-      let body = term.body(Kind.Term.ref(term.name))
-      let body = Kind.Term.SmartMotive.replace(body, from, to, Nat.succ(lv));
-      Kind.Term.def(term.name, expr, (x) body),
     ann:
       let term = Kind.Term.SmartMotive.replace(term.term, from, to, lv);
       let type = Kind.Term.SmartMotive.replace(term.type, from, to, lv);

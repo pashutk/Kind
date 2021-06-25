@@ -80,8 +80,6 @@ Kind.Comp.compile(
         let expr_var = Kind.Term.ann(true, Kind.Term.var(name_uid, size + 1), expr_typ)
         let {body_cmp, body_typ} = Kind.Comp.compile(term.body(expr_var), none, defs, size + 1)
         {Kind.Comp.let(name_uid, expr_cmp, body_cmp), body_typ}
-      def:
-        Kind.Comp.compile(term.body(term.expr), none, defs, size)
       ann:
         Kind.Comp.compile(term.term, some(term.type), defs, size)
       loc:

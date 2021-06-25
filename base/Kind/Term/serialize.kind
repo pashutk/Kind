@@ -43,8 +43,6 @@ Kind.Term.serialize.go(term: Kind.Term, depth: Nat, init: Nat, diff: Bits -> Bit
         init,
         diff);
       Bits.i(Bits.i(Bits.i(expr(body(x))))),
-    def:
-      Kind.Term.serialize.go(term.body(term.expr), depth, init, diff, x),
     ann:
       Kind.Term.serialize.go(term.term, depth, init, diff, x),
     gol:
@@ -95,9 +93,6 @@ Kind.Term.serialize(term: Kind.Term, depth: Nat, side: Bool): Bits
       //Kind.Term.serialize.loop(term.expr, depth, init, diff, (expr)
       //Kind.Term.serialize.loop(term.body(Kind.Term.var(term.name, depth)), Nat.succ(depth), init, diff, (body)
       //cont(Bits.concat(Bits.i(Bits.i(Bits.i(Bits.e))), Bits.concat(expr, body)))))
-    //def:
-      //Kind.Term.serialize.loop(term.body(term.expr), depth, init, diff, (body)
-      //cont(body))
     //ann:
       //Kind.Term.serialize.loop(term.term, depth, init, diff, (term)
       //cont(term))

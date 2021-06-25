@@ -21,10 +21,6 @@ Kind.Term.normalize(term: Kind.Term, defs: Kind.Defs): Kind.Term
       def expr = Kind.Term.normalize(term.expr, defs);
       def body = (x) Kind.Term.normalize(term.body(x), defs);
       Kind.Term.let(term.name, expr, body),
-    def:
-      def expr = Kind.Term.normalize(term.expr, defs);
-      def body = (x) Kind.Term.normalize(term.body(x), defs);
-      Kind.Term.def(term.name, expr, body),
     ann:
       def term = Kind.Term.normalize(term.term, defs);
       def type = Kind.Term.normalize(term.type, defs);

@@ -21,10 +21,6 @@ Kind.Term.inline(term: Kind.Term, defs: Kind.Defs): Kind.Term
       def expr = Kind.Term.inline(term.expr, defs);
       def body = (x) Kind.Term.inline(term.body(x), defs);
       Kind.Term.let(term.name, expr, body),
-    def:
-      def expr = Kind.Term.inline(term.expr, defs);
-      def body = (x) Kind.Term.inline(term.body(x), defs);
-      Kind.Term.def(term.name, expr, body),
     ann:
       def term = Kind.Term.inline(term.term, defs);
       def type = Kind.Term.inline(term.type, defs);
