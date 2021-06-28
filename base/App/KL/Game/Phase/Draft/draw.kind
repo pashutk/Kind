@@ -129,7 +129,7 @@ App.KL.Game.Phase.draft.draw.bottom(players: Map<App.KL.Game.Player>, room: Stri
     "justify-content" : "center"
     "align-items": "center"
   }>
-    { App.KL.Game.Phase.Draft.draw.menu(players)}
+    { App.KL.Game.Phase.Draft.draw.menu(user, players)}
     { App.KL.Game.Phase.Draft.draw.ready_button(players, room, user)}
   </div>
 
@@ -139,7 +139,6 @@ App.KL.Game.Phase.draft.draw.bottom(players: Map<App.KL.Game.Player>, room: Stri
 // draw coord positions on the left of top layout
 App.KL.Game.Phase.Draft.draw.coordinates(players: Map<App.KL.Game.Player>, user: String): DOM
   <div style={ 
-    
   }>
     {App.KL.Game.Phase.Draft.draw.map_space(players, user)}
   </div>
@@ -154,7 +153,8 @@ App.KL.Game.Phase.Draft.draw.map_space(players: Map<App.KL.Game.Player>, user: S
     "border-radius": "15px"
     "background-color": "#d6dadc"
     "position": "relative"
-  }>  
+  }>
+    <p style={"text-align": "center"}>"Choose a coordinate"</p>
     for div in App.KL.Game.Phase.Draft.draw.tiles(players, user): div
   </div>
 
@@ -427,7 +427,15 @@ App.KL.Game.Phase.Draft.draw.ready_button(players: Map<App.KL.Game.Player>, room
   let {btn_info, disabled} = App.KL.Game.Phase.Draft.draw.ready_button.get_info(info)
   
   let cursor   = if disabled then "not-allowed" else "pointer"
-  let disabled = if disabled then "true" else "false"
+  
+  // set button disabled or enabled
+  let button_props = { "id": "Ready" }
+  let button_props = 
+    if disabled then 
+      Map.set!("disabled", "disabled", button_props)
+    else
+      Map.set!("enabled", "enabled", button_props)
+  
 
   <div style={
     "display": "flex"
@@ -446,7 +454,7 @@ App.KL.Game.Phase.Draft.draw.ready_button(players: Map<App.KL.Game.Player>, room
     }>
       room
     </div>
-    <button id="Ready" style={ 
+    { DOM.node("button", button_props, { 
       "background-color": btn_info@fst
       "border": "none"
       "color": "white"
@@ -457,9 +465,7 @@ App.KL.Game.Phase.Draft.draw.ready_button(players: Map<App.KL.Game.Player>, room
       "font-size": "32px"
       "margin": "4px 2px"
       "cursor": cursor
-    } disabled=disabled>
-      btn_info@snd
-    </button>
+    }, [DOM.text(btn_info@snd)]) }
   </div>
 
 // return button color, message and disabled status depending on player info
@@ -487,10 +493,11 @@ App.KL.Game.Phase.Draft.draw.ready_button.get_info(info: Maybe<App.KL.Game.Playe
 // BOTTOM MENU FOR CHOOSING HEROES 
 // ======================
 App.KL.Game.Phase.Draft.draw.menu(
+  user: String
   players: Map<App.KL.Game.Player>
 ): DOM
 
-  heroes = App.KL.Game.Hero.list
+  
   main_style = {
     "max-height": "max(280px, 40vh)"
     "overflow-y": "auto"
@@ -506,7 +513,14 @@ App.KL.Game.Phase.Draft.draw.menu(
     "width": "100%"
   }
   
-  hero_list = List.map!!(App.KL.Game.Phase.Draft.draw.selection, heroes) 
+  selected_hero_id = Maybe {
+    get user    = players{user}
+    get hero_id = user@hero_id
+    return hero_id
+  }
+
+  heroes    = App.KL.Game.Hero.list
+  hero_list = List.map!!(App.KL.Game.Phase.Draft.draw.selection(selected_hero_id), heroes) 
 
   <div style=main_style>
     <div style=display_style>
@@ -522,9 +536,21 @@ App.KL.Game.Phase.Draft.draw.menu(
      //Selection
 //----------------------------------------------
 App.KL.Game.Phase.Draft.draw.selection(
+  selected_hero_id: Maybe<Nat>
   hero: App.KL.Game.Hero
 ): DOM
-   
+  
+  // change border color if hero is the hero selected
+  border_color = Maybe {
+    get selected_hero_id = selected_hero_id
+    get hero_id = App.KL.Game.Hero.name_to_id(hero@name)
+    if selected_hero_id =? hero_id then Maybe {
+      return "#fe7309"
+    } else Maybe {
+      return "#d6dadc"
+    }
+  } <> "#d6dadc"
+
   image = hero@picture(true, 0) //TODO placeholder
   //assets = hero@assets
   //image  = assets@base64
@@ -533,7 +559,7 @@ App.KL.Game.Phase.Draft.draw.selection(
   { 
     "cursor": "pointer"
     "margin": "0 8px 4px 0px",
-    "border": "5px solid #d6dadc",
+    "border": "5px solid " | border_color,
     //"box-shadow":"0 2px 3px rgba(0, 0, 0, 0.1)",
     "background-color": "#bac1c4"
     "height": "auto",
