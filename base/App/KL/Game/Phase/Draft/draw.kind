@@ -43,10 +43,11 @@ App.KL.Game.Phase.Draft.draw.main(players: Map<App.KL.Game.Player>, room: String
 // CHOOSE TEAM SCREEN
 // ----------
 App.KL.Game.Phase.Draft.draw.choose_team(players: Map<App.KL.Game.Player>): DOM
-  <div style={ 
-    // "width": "60%"
-    // "height": "30%"
+  <div style={
+    "height": "100vh"
+    "display": "flex"
     "justify-content": "center"
+    "align-items": "center"
     "flex-wrap": "wrap"
   }>
     {App.KL.Game.Phase.Draft.draw.choose_team.button(players, App.KL.Game.Team.blue)}
@@ -72,7 +73,6 @@ App.KL.Game.Phase.Draft.draw.choose_team.button(players: Map<App.KL.Game.Player>
     }
   
   <button id = "T" | Nat.show(player_count) | team_txt style={ 
-    "width": "40%"
     "height": "200px"
     "background-image": gradient
     "box-shadow": "2px -2px 2px black"
@@ -126,7 +126,7 @@ App.KL.Game.Phase.draft.draw.bottom(players: Map<App.KL.Game.Player>, room: Stri
     "min-height": "max(325px, 45vh)"
     "padding": "20px"
     "display": "flex"
-    "justify-content" : "center"
+    "justify-content" : "space-around"
     "align-items": "center"
   }>
     { App.KL.Game.Phase.Draft.draw.menu(user, players)}
@@ -501,7 +501,6 @@ App.KL.Game.Phase.Draft.draw.menu(
   main_style = {
     "max-height": "max(280px, 40vh)"
     "overflow-y": "auto"
-    "margin-right": "40px"
   }
   
   display_style = 
@@ -525,11 +524,11 @@ App.KL.Game.Phase.Draft.draw.menu(
   <div style=main_style>
     <div style=display_style>
       for div in hero_list: div
-      for div in hero_list: div
-      for div in hero_list: div
-      for div in hero_list: div
-      for div in hero_list: div
-      for div in hero_list: div
+      // for div in hero_list: div
+      // for div in hero_list: div
+      // for div in hero_list: div
+      // for div in hero_list: div
+      // for div in hero_list: div
     </div>
   </div>
 
@@ -576,8 +575,8 @@ App.KL.Game.Phase.Draft.draw.selection(
   img_box_style = 
   {
     "padding": "2px",
-    "height": "100%",
-    "width": "100%"
+    // "height": "100%",
+    // "width": "100%"
   } 
 
   corner_style = 
