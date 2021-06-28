@@ -125,12 +125,17 @@ App.KL.Game.Phase.draft.draw.bottom(players: Map<App.KL.Game.Player>, room: Stri
     "background-image": "linear-gradient(#0e0c0e, #242324)"
     "min-height": "max(325px, 45vh)"
     "padding": "20px"
-    "display": "flex"
-    "justify-content" : "space-around"
-    "align-items": "center"
   }>
-    { App.KL.Game.Phase.Draft.draw.menu(user, players)}
-    { App.KL.Game.Phase.Draft.draw.ready_button(players, room, user)}
+    <div style={
+      "margin": "auto"
+      "display": "flex"
+      "justify-content" : "space-around"
+      "align-items": "center"
+      "max-width": "1280px"
+    }>
+      { App.KL.Game.Phase.Draft.draw.menu(user, players)}
+      { App.KL.Game.Phase.Draft.draw.ready_button(players, room, user)}
+    </div>
   </div>
 
 // CHOICE OF COORDINATES 
@@ -524,11 +529,11 @@ App.KL.Game.Phase.Draft.draw.menu(
   <div style=main_style>
     <div style=display_style>
       for div in hero_list: div
-      // for div in hero_list: div
-      // for div in hero_list: div
-      // for div in hero_list: div
-      // for div in hero_list: div
-      // for div in hero_list: div
+      for div in hero_list: div
+      for div in hero_list: div
+      for div in hero_list: div
+      for div in hero_list: div
+      for div in hero_list: div
     </div>
   </div>
 
