@@ -22,7 +22,7 @@ Kind.Comp.Target.Javascript.lambda(name: String, body: String): String
   "(("|Kind.Comp.Target.Javascript.name(name)|") => { return "|body|";})"
 
 Kind.Comp.Target.Javascript.application(func: String, argm: String): String
-  "("|func|"("|argm|")"|")"
+  func|"("|argm|")"
 
 Kind.Comp.Target.Javascript.local_definition(name: String, expr: String, body: String): String
   "(() => {const "|Kind.Comp.Target.Javascript.name(name)|" = "|expr|";\n return "
