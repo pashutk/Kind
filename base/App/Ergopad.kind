@@ -1,0 +1,54 @@
+App.Ergopad.init: App.Init<App.Ergopad.State>
+  App.Store.new!(App.Ergopad.State.local_empty, 0)
+
+App.Ergopad.layout(body: DOM): DOM
+  <div style={
+    "padding": "1rem"
+    "display": "flex"
+    "height": "100%"
+    "justify-content": "center"
+    "align-items": "center"
+    "font-size": "16px"
+    "background-color": "#eee"
+  }>{body}</div>
+
+App.Ergopad.render_button(id: String, text: String): DOM
+  <button id=id>text</button>
+
+App.Ergopad.draw: App.Draw<App.Ergopad.State>
+  (state)
+    App.Ergopad.layout(
+      case state@local@scene {
+        touchytouchy:
+          <div>
+            <div>App.Ergopad.Scene.show(state@local@scene)</div>
+            {App.Ergopad.render_button("increase", "Increase")}
+          </div>
+      }
+    )
+
+App.Ergopad.when: App.When<App.Ergopad.State>
+  (event, state)
+    case event {
+      mouse_click:
+        if String.eql(event.id, "increase")
+          // then App.set_local!(state@local + 1)
+          then App.pass!
+          else App.pass!
+    } default App.pass!
+
+App.Ergopad.tick: App.Tick<App.Ergopad.State>
+  App.no_tick<App.Ergopad.State>
+
+App.Ergopad.post: App.Post<App.Ergopad.State>
+  App.no_post<App.Ergopad.State>
+
+App.Ergopad: App<App.Ergopad.State>
+  App.new<App.Ergopad.State>(
+    App.Ergopad.init,
+    App.Ergopad.draw,
+    App.Ergopad.when,
+    App.Ergopad.tick,
+    App.Ergopad.post
+  )
+
