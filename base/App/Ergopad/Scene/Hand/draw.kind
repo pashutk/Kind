@@ -1,1 +1,31 @@
-// App.Ergopad.Scene.Hand.draw(state: )
+App.Ergopad.Scene.Hand.render_finger(state: App.Ergopad.Scene.Hand.State, finger: App.Ergopad.Scene.Hand.State.Finger): DOM
+  open state
+  is_active = case state.active_finger {
+    none: false
+    some: case state.active_finger.value finger {
+      pinky pinky: true
+      ring ring: true
+      middle middle: true
+      index index: true
+      index_far index_far: true
+      thumb thumb: true
+    } default false
+  }
+
+  style = {
+    "background-color": if is_active then "#ccc" else "transparent"
+  }
+  <button style=style>App.Ergopad.Scene.Hand.State.Finger.show(finger)</button>
+
+App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
+  FingerButton = App.Ergopad.Scene.Hand.render_finger(state)
+
+  <div>
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.thumb)}
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.index_far)}
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.index)}
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.middle)}
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.ring)}
+    {FingerButton(App.Ergopad.Scene.Hand.State.Finger.pinky)}
+  </div>
+

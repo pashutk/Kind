@@ -1,8 +1,11 @@
 type App.Ergopad.Scene {
-  touchytouchy
+  hand(state: App.Ergopad.Scene.Hand.State)
 }
+
+App.Ergopad.Scene.empty: App.Ergopad.Scene
+  App.Ergopad.Scene.hand(App.Ergopad.Scene.Hand.State.empty)
 
 App.Ergopad.Scene.show(scene: App.Ergopad.Scene): String
   case scene {
-    touchytouchy: "touchytouchwy"
+    hand: "hand"
   }

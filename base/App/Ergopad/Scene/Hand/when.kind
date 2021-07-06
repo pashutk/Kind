@@ -1,0 +1,4 @@
+App.Ergopad.Scene.Hand.when(event: App.Event, state: App.Ergopad.Scene.Hand.State): IO<Maybe<App.State.local<App.Ergopad.State>>>
+  IO {
+    App.pass!
+  }
