@@ -16,7 +16,9 @@ Usage
 -----
 ![npm](https://img.shields.io/npm/v/kind-lang)  [![telegram](https://img.shields.io/badge/chat-on%20telegram-blue)](https://t.me/formality_lang)
 
-1. Install Kind using `npm` (alternative releases soon):
+0. Choose a release. We'll use JavaScript here but ChezScheme is also [available](/INSTALL.md).
+
+1. Install Kind using `npm`:
 
 ```bash
 npm i -g kind-lang
@@ -125,6 +127,16 @@ sugars: Nat
   val1 = map{"tac"} <> 0              // Maybe.default!(Map.get!("tac",map), 0)
   val2 = map{ key } <> 0              // Maybe.default!(Map.get!(key, map), 0)
   val0 + val1 + val2                  // Nat.add(val0, Nat.add(val1, val2))
+```
+
+```c
+// List monadic block: returns [{1,4},{1,5},{1,6},{2,4},...,{3,6}]
+my_list: List<Pair<Nat,Nat>>
+  List {
+    get x = [1, 2, 3]
+    get y = [4, 5, 6]
+    return {x, y}
+  }
 ```
 
 Check many List algorithms on [base/List](https://github.com/uwu-tech/Kind/tree/master/base/List)!
