@@ -1,4 +1,59 @@
-App.Ergopad.Scene.Hand.when(event: App.Event, state: App.Ergopad.Scene.Hand.State): IO<Maybe<App.State.local<App.Ergopad.State>>>
-  IO {
-    App.pass!
-  }
+App.Ergopad.Scene.Hand.select_finger(
+  active_finger: Maybe<App.Ergopad.Scene.Hand.State.Finger>,
+  finger: App.Ergopad.Scene.Hand.State.Finger,
+): App.State.local(App.Ergopad.State)
+  { App.Ergopad.Scene.hand({
+    case active_finger {
+      none: some(finger)
+      some: case active_finger.value finger {
+        pinky pinky: none
+        ring ring: none
+        middle middle: none
+        index index: none
+        index_far index_far: none
+        thumb thumb: none
+      } default some(finger)
+    } 
+  }) }
+
+App.Ergopad.Scene.Hand.when(
+  event: App.Event,
+  state: App.Ergopad.Scene.Hand.State
+): IO<Maybe<App.State.local<App.Ergopad.State>>>
+  open state
+  select_finger = App.Ergopad.Scene.Hand.select_finger(state.active_finger)
+  case event {
+    mouse_click:
+      switch String.eql(event.id) {
+        App.Ergopad.Scene.Hand.constant.button_id_pinky:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.ring)
+          )
+          
+        App.Ergopad.Scene.Hand.constant.button_id_ring:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.ring)
+          )
+
+        App.Ergopad.Scene.Hand.constant.button_id_middle:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.middle)
+          )
+
+        App.Ergopad.Scene.Hand.constant.button_id_index:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.index)
+          )
+
+        App.Ergopad.Scene.Hand.constant.button_id_index_far:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.index_far)
+          )
+
+        App.Ergopad.Scene.Hand.constant.button_id_thumb:
+          App.set_local!(
+            select_finger(App.Ergopad.Scene.Hand.State.Finger.thumb)
+          )
+
+      } default App.pass!
+  } default App.pass!

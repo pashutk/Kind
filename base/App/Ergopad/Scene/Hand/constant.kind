@@ -1,0 +1,17 @@
+App.Ergopad.Scene.Hand.constant.button_id_pinky: String
+  "select_pinky"
+
+App.Ergopad.Scene.Hand.constant.button_id_ring: String
+  "select_ring"
+
+App.Ergopad.Scene.Hand.constant.button_id_middle: String
+  "select_middle"
+
+App.Ergopad.Scene.Hand.constant.button_id_index: String
+  "select_index"
+
+App.Ergopad.Scene.Hand.constant.button_id_index_far: String
+  "select_index_far"
+
+App.Ergopad.Scene.Hand.constant.button_id_thumb: String
+  "select_thumb"

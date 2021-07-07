@@ -13,7 +13,9 @@ type App.Ergopad.Scene.Hand.State.Finger {
   thumb,
 }
 
-App.Ergopad.Scene.Hand.State.Finger.show(finger: App.Ergopad.Scene.Hand.State.Finger): String
+App.Ergopad.Scene.Hand.State.Finger.show(
+  finger: App.Ergopad.Scene.Hand.State.Finger
+): String
   case finger {
     pinky: "pinky"
     ring: "ring"
@@ -24,4 +26,4 @@ App.Ergopad.Scene.Hand.State.Finger.show(finger: App.Ergopad.Scene.Hand.State.Fi
   }
 
 App.Ergopad.Scene.Hand.State.empty: App.Ergopad.Scene.Hand.State
-  App.Ergopad.Scene.Hand.State.new(Maybe.some!(App.Ergopad.Scene.Hand.State.Finger.thumb))
+  { Maybe.some!(App.Ergopad.Scene.Hand.State.Finger.middle) }

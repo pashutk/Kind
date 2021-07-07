@@ -5,7 +5,7 @@ type App.Ergopad.State.local {
 }
 
 App.Ergopad.State.local_empty: App.Ergopad.State.local
-  App.Ergopad.State.local.new(App.Ergopad.Scene.empty)
+  { App.Ergopad.Scene.empty }
 
 App.Ergopad.State: App.State
-  App.State.new(App.Ergopad.State.local, Nat)
+  { App.Ergopad.State.local, Nat }
