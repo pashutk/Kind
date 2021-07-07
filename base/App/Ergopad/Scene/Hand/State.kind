@@ -13,6 +13,19 @@ type App.Ergopad.Scene.Hand.State.Finger {
   thumb,
 }
 
+App.Ergopad.Scene.Hand.State.Finger.eql(
+  f1: App.Ergopad.Scene.Hand.State.Finger,
+  f2: App.Ergopad.Scene.Hand.State.Finger,
+): Bool
+  case f1 f2 {
+    pinky pinky: true
+    ring ring: true
+    middle middle: true
+    index index: true
+    index_far index_far: true
+    thumb thumb: true
+  } default false
+
 App.Ergopad.Scene.Hand.State.Finger.show(
   finger: App.Ergopad.Scene.Hand.State.Finger
 ): String

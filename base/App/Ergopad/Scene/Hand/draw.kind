@@ -4,17 +4,10 @@ App.Ergopad.Scene.Hand.render_finger(
   id: String
 ): DOM
   open state
-  is_active = case state.active_finger {
-    none: false
-    some: case state.active_finger.value finger {
-      pinky pinky: true
-      ring ring: true
-      middle middle: true
-      index index: true
-      index_far index_far: true
-      thumb thumb: true
-    } default false
-  }
+
+  is_active = 
+    without state.active_finger: false
+    App.Ergopad.Scene.Hand.State.Finger.eql(state.active_finger, finger)
 
   style = {
     "background-color": if is_active then "#ccc" else "transparent"

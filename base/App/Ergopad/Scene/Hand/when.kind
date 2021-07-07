@@ -2,17 +2,15 @@ App.Ergopad.Scene.Hand.select_finger(
   active_finger: Maybe<App.Ergopad.Scene.Hand.State.Finger>,
   finger: App.Ergopad.Scene.Hand.State.Finger,
 ): App.State.local(App.Ergopad.State)
+  finger_eql = App.Ergopad.Scene.Hand.State.Finger.eql(finger)
+
   { App.Ergopad.Scene.hand({
     case active_finger {
       none: some(finger)
-      some: case active_finger.value finger {
-        pinky pinky: none
-        ring ring: none
-        middle middle: none
-        index index: none
-        index_far index_far: none
-        thumb thumb: none
-      } default some(finger)
+      some:
+        if finger_eql(active_finger.value)
+          then none
+          else some(finger)
     } 
   }) }
 
