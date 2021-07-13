@@ -16,6 +16,9 @@ App.Ergopad.Scene.Hand.render_finger(
 
 App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
   FingerButton = App.Ergopad.Scene.Hand.render_finger(state)
+  vbox_props = {
+    "id": App.Ergopad.Scene.Hand.constant.vbox_id
+  }
 
   <div>
     <div>
@@ -44,8 +47,6 @@ App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
         App.Ergopad.Scene.Hand.constant.button_id_pinky
       )}
     </div>
-    {DOM.vbox({
-      "id": App.Ergopad.Scene.Hand.constant.vbox_id
-    }, {}, VoxBox.alloc_capacity(U32.mul(65536#32, 8#32)))}
+    {DOM.vbox(vbox_props, {}, VoxBox.alloc_capacity(U32.mul(65536#32, 8#32)))}
   </div>
 

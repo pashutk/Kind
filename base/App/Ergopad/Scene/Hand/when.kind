@@ -58,6 +58,9 @@ App.Ergopad.Scene.Hand.when(
       } default App.pass!
     
     pointer_down:
-      log(Pair.show!!(U32.show, U32.show, event.mouse_pos))
-      App.pass!
+      switch String.eql(event.id) {
+        App.Ergopad.Scene.Hand.constant.vbox_id:
+          log(Pair.show!!(U32.show, U32.show, event.mouse_pos))
+          App.pass!
+      } default App.pass!
   } default App.pass!
