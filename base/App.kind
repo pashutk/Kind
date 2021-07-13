@@ -78,6 +78,12 @@ type App.Event {
     time: U64
     button: U16
   )
+  // Occurs when a pointer becomes active
+  pointer_down(
+    time: U64
+    mouse_pos: Pair<U32, U32>
+    id: String
+  )
   // Occurs when a user releases a mouse button over an element
   mouse_up(
     time: U64

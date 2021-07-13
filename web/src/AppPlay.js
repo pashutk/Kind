@@ -163,6 +163,16 @@ module.exports = class AppPlay extends Component {
     };
     document.body.addEventListener("keyup", this.listeners.keyup);
 
+    this.listeners.pointerdown = (e) => {
+      this.register_event({
+        _: "App.Event.pointer_down",
+        time: BigInt(Date.now()),
+        mouse_pos: {_: "Pair.new", fst: e.offsetX, snd: e.offsetY},
+        id: e.target.id
+      });
+    };
+    document.body.addEventListener("pointerdown", this.listeners.pointerdown);
+
     // Tick event
     this.intervals.tick = () => {
       setInterval(() => {
