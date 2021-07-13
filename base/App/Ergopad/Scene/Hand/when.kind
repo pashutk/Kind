@@ -1,17 +1,19 @@
-App.Ergopad.Scene.Hand.select_finger(
-  active_finger: Maybe<App.Ergopad.Scene.Hand.State.Finger>,
+App.Ergopad.Scene.Hand.select_active_finger(
+  state: App.Ergopad.Scene.Hand.State,
   finger: App.Ergopad.Scene.Hand.State.Finger,
 ): App.State.local(App.Ergopad.State)
   finger_eql = App.Ergopad.Scene.Hand.State.Finger.eql(finger)
+  open state
 
   { App.Ergopad.Scene.hand({
-    case active_finger {
+    case state.active_finger {
       none: some(finger)
       some:
-        if finger_eql(active_finger.value)
+        if finger_eql(state.active_finger.value)
           then none
           else some(finger)
-    } 
+    },
+    state.app_env_info
   }) }
 
 App.Ergopad.Scene.Hand.when(
@@ -19,39 +21,43 @@ App.Ergopad.Scene.Hand.when(
   state: App.Ergopad.Scene.Hand.State
 ): IO<Maybe<App.State.local<App.Ergopad.State>>>
   open state
-  select_finger = App.Ergopad.Scene.Hand.select_finger(state.active_finger)
+  select_active_finger = App.Ergopad.Scene.Hand.select_active_finger(state)
   case event {
     mouse_click:
       switch String.eql(event.id) {
         App.Ergopad.Scene.Hand.constant.button_id_pinky:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.ring)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.pinky)
           )
           
         App.Ergopad.Scene.Hand.constant.button_id_ring:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.ring)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.ring)
           )
 
         App.Ergopad.Scene.Hand.constant.button_id_middle:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.middle)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.middle)
           )
 
         App.Ergopad.Scene.Hand.constant.button_id_index:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.index)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.index)
           )
 
         App.Ergopad.Scene.Hand.constant.button_id_index_far:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.index_far)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.index_far)
           )
 
         App.Ergopad.Scene.Hand.constant.button_id_thumb:
           App.set_local!(
-            select_finger(App.Ergopad.Scene.Hand.State.Finger.thumb)
+            select_active_finger(App.Ergopad.Scene.Hand.State.Finger.thumb)
           )
 
       } default App.pass!
+    
+    pointer_down:
+      log(Pair.show!!(U32.show, U32.show, event.mouse_pos))
+      App.pass!
   } default App.pass!

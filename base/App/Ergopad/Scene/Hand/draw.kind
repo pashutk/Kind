@@ -18,29 +18,34 @@ App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
   FingerButton = App.Ergopad.Scene.Hand.render_finger(state)
 
   <div>
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.thumb,
-      App.Ergopad.Scene.Hand.constant.button_id_thumb
-    )}
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.index_far,
-      App.Ergopad.Scene.Hand.constant.button_id_index_far
-    )}
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.index,
-      App.Ergopad.Scene.Hand.constant.button_id_index
-    )}
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.middle,
-      App.Ergopad.Scene.Hand.constant.button_id_middle
-    )}
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.ring,
-      App.Ergopad.Scene.Hand.constant.button_id_ring
-    )}
-    {FingerButton(
-      App.Ergopad.Scene.Hand.State.Finger.pinky,
-      App.Ergopad.Scene.Hand.constant.button_id_pinky
-    )}
+    <div>
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.thumb,
+        App.Ergopad.Scene.Hand.constant.button_id_thumb
+      )}
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.index_far,
+        App.Ergopad.Scene.Hand.constant.button_id_index_far
+      )}
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.index,
+        App.Ergopad.Scene.Hand.constant.button_id_index
+      )}
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.middle,
+        App.Ergopad.Scene.Hand.constant.button_id_middle
+      )}
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.ring,
+        App.Ergopad.Scene.Hand.constant.button_id_ring
+      )}
+      {FingerButton(
+        App.Ergopad.Scene.Hand.State.Finger.pinky,
+        App.Ergopad.Scene.Hand.constant.button_id_pinky
+      )}
+    </div>
+    {DOM.vbox({
+      "id": App.Ergopad.Scene.Hand.constant.vbox_id
+    }, {}, VoxBox.alloc_capacity(U32.mul(65536#32, 8#32)))}
   </div>
 

@@ -15,3 +15,6 @@ App.Ergopad.Scene.Hand.constant.button_id_index_far: String
 
 App.Ergopad.Scene.Hand.constant.button_id_thumb: String
   "select_thumb"
+
+App.Ergopad.Scene.Hand.constant.vbox_id: String
+  "hand_vbox"
