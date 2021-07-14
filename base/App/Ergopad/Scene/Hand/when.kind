@@ -12,9 +12,33 @@ App.Ergopad.Scene.Hand.select_active_finger(
         if finger_eql(state.active_finger.value)
           then none
           else some(finger)
-    },
-    state.app_env_info
+    }
+    state.points
   }) }
+
+App.Ergopad.Scene.Hand.add_point(
+  state: App.Ergopad.Scene.Hand.State,
+  point: Pair<U32, U32>,
+): App.State.local(App.Ergopad.State)
+  open state
+  open state.points
+
+  { App.Ergopad.Scene.hand(
+    // If no active finger selected then return state as is
+    without state.active_finger: state
+    
+    {
+      Maybe.some!(state.active_finger)
+      { 
+        point & state.points.pinky
+        []
+        []
+        []
+        []
+        []
+      }
+    } :: App.Ergopad.Scene.Hand.State
+  ) }
 
 App.Ergopad.Scene.Hand.when(
   event: App.Event,
@@ -22,6 +46,7 @@ App.Ergopad.Scene.Hand.when(
 ): IO<Maybe<App.State.local<App.Ergopad.State>>>
   open state
   select_active_finger = App.Ergopad.Scene.Hand.select_active_finger(state)
+  add_point = App.Ergopad.Scene.Hand.add_point(state)
   case event {
     mouse_click:
       switch String.eql(event.id) {
@@ -61,6 +86,8 @@ App.Ergopad.Scene.Hand.when(
       switch String.eql(event.id) {
         App.Ergopad.Scene.Hand.constant.vbox_id:
           log(Pair.show!!(U32.show, U32.show, event.mouse_pos))
-          App.pass!
+          App.set_local!(
+            add_point(event.mouse_pos)
+          )
       } default App.pass!
   } default App.pass!

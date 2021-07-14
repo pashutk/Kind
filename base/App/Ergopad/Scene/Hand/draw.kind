@@ -15,10 +15,28 @@ App.Ergopad.Scene.Hand.render_finger(
   <button id=id style=style>App.Ergopad.Scene.Hand.State.Finger.show(finger)</button>
 
 App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
+  open state
+  open state.points
+
   FingerButton = App.Ergopad.Scene.Hand.render_finger(state)
   vbox_props = {
     "id": App.Ergopad.Scene.Hand.constant.vbox_id
   }
+  vbox = VoxBox.alloc_capacity(U32.mul(65536#32, 8#32))
+
+  a = state.points.pinky
+  let e = VoxBox.alloc_capacity(U32.mul(65536#32, 8#32))
+  for point in a with e:
+    vbox = VoxBox.Draw.rect(
+      Pair.fst!!(point),
+      Pair.snd!!(point),
+      1,
+      2,
+      2,
+      Col32.new(0, 0, 255, 255),
+      vbox
+    )
+  vbox
 
   <div>
     <div>
@@ -47,6 +65,6 @@ App.Ergopad.Scene.Hand.draw(state: App.Ergopad.Scene.Hand.State): DOM
         App.Ergopad.Scene.Hand.constant.button_id_pinky
       )}
     </div>
-    {DOM.vbox(vbox_props, {}, VoxBox.alloc_capacity(U32.mul(65536#32, 8#32)))}
+    {DOM.vbox(vbox_props, {}, vbox)}
   </div>
 
